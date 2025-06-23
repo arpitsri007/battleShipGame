@@ -35,8 +35,14 @@ public class Game {
             return false;
         }
 
+        // Calculate starting coordinates (top-left corner) from center coordinates
+        int startX1 = posX1 - size / 2;
+        int startY1 = posY1 - size / 2;
+        int startX2 = posX2 - size / 2;
+        int startY2 = posY2 - size / 2;
+
         // Check if ships can be placed
-        if (!board.canPlaceShip(posX1, posY1, size) || !board.canPlaceShip(posX2, posY2, size)) {
+        if (!board.canPlaceShip(startX1, startY1, size) || !board.canPlaceShip(startX2, startY2, size)) {
             return false;
         }
 
@@ -44,8 +50,8 @@ public class Game {
         BattleShip shipA = new BattleShip(shipId + "_A", size, playerA);
         BattleShip shipB = new BattleShip(shipId + "_B", size, playerB);
 
-        board.placeShip(shipA, posX1, posY1);
-        board.placeShip(shipB, posX2, posY2);
+        board.placeShip(shipA, startX1, startY1);
+        board.placeShip(shipB, startX2, startY2);
 
         playerA.addShip(shipA);
         playerB.addShip(shipB);
@@ -53,11 +59,17 @@ public class Game {
         return true;
     }
 
-    private boolean isValidShipPosition(int x, int y, int size, Player player) {
-        // Check if ship fits within player's territory
-        return x >= player.getTerritoryStartX() && 
-               x + size <= player.getTerritoryEndX() &&
-               y >= 0 && y + size <= board.getSize();
+    private boolean isValidShipPosition(int centerX, int centerY, int size, Player player) {
+        // Calculate the boundaries of the ship based on center coordinates
+        int startX = centerX - size / 2;
+        int endX = centerX + size / 2;
+        int startY = centerY - size / 2;
+        int endY = centerY + size / 2;
+        
+        // Check if ship fits within player's territory and board bounds
+        return startX >= player.getTerritoryStartX() && 
+               endX < player.getTerritoryEndX() &&
+               startY >= 0 && endY < board.getSize();
     }
 
     public void startGame() {

@@ -18,7 +18,7 @@ public class Main {
             System.out.println("Game initialized with ID: " + gameId);
             
             // Add ships for both players
-            boolean shipAdded = gameService.addShip("SH1", 2, 1, 5, 4, 4);
+            boolean shipAdded = gameService.addShip("SH1", 2, 1, 2, 4, 2);
             if (shipAdded) {
                 System.out.println("Ship SH1 added successfully");
             } else {

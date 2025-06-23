@@ -35,6 +35,10 @@ public class GameService {
     public void playTurn() {
         validateGameExists();
         
+        if (game.getState() != GameState.IN_PROGRESS) {
+            throw new IllegalStateException("Game is not in progress");
+        }
+        
         if (game.isGameFinished()) {
             System.out.println("Game is already finished!");
             return;

@@ -43,20 +43,20 @@ class GameServiceTest {
     @Test
     void testAddShip_ValidShip_ReturnsTrue() {
         gameService.initGame(6);
-        boolean result = gameService.addShip("SH1", 2, 1, 5, 4, 4);
+        boolean result = gameService.addShip("SH1", 2, 1, 2, 4, 2);
         assertTrue(result);
     }
 
     @Test
     void testAddShip_GameNotInitialized_ThrowsException() {
         assertThrows(IllegalStateException.class, () -> 
-            gameService.addShip("SH1", 2, 1, 5, 4, 4));
+            gameService.addShip("SH1", 2, 1, 2, 4, 2));
     }
 
     @Test
     void testStartGame_ValidGame_StartsSuccessfully() {
         gameService.initGame(6);
-        gameService.addShip("SH1", 2, 1, 5, 4, 4);
+        gameService.addShip("SH1", 2, 1, 2, 4, 2);
         assertDoesNotThrow(() -> gameService.startGame());
     }
 
@@ -69,7 +69,7 @@ class GameServiceTest {
     @Test
     void testPlayTurn_ValidGame_PlaysSuccessfully() {
         gameService.initGame(6);
-        gameService.addShip("SH1", 2, 1, 5, 4, 4);
+        gameService.addShip("SH1", 2, 1, 2, 4, 2);
         gameService.startGame();
         
         when(firingStrategy.getStrikeCoordinates(anyString(), anyInt()))
@@ -87,7 +87,7 @@ class GameServiceTest {
     @Test
     void testViewBattleField_ValidGame_DisplaysSuccessfully() {
         gameService.initGame(6);
-        gameService.addShip("SH1", 2, 1, 5, 4, 4);
+        gameService.addShip("SH1", 2, 1, 2, 4, 2);
         assertDoesNotThrow(() -> gameService.viewBattleField());
     }
 

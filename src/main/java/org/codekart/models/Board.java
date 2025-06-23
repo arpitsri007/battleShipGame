@@ -48,9 +48,14 @@ public class Board {
     }
 
     public boolean canPlaceShip(int x, int y, int size) {
+        // First check if the ship would extend beyond the board boundaries
+        if (x < 0 || y < 0 || x + size > this.size || y + size > this.size) {
+            return false;
+        }
+        
         // Check if ship can be placed at given position
-        for (int i = x; i < x + size && i < this.size; i++) {
-            for (int j = y; j < y + size && j < this.size; j++) {
+        for (int i = x; i < x + size; i++) {
+            for (int j = y; j < y + size; j++) {
                 if (grid[i][j].isCellOccupied()) {
                     return false;
                 }
@@ -60,8 +65,8 @@ public class Board {
     }
 
     public void placeShip(BattleShip ship, int startX, int startY) {
-        for (int i = startX; i < startX + ship.getSize() && i < size; i++) {
-            for (int j = startY; j < startY + ship.getSize() && j < size; j++) {
+        for (int i = startX; i < startX + ship.getSize(); i++) {
+            for (int j = startY; j < startY + ship.getSize(); j++) {
                 grid[i][j].setShip(ship);
                 ship.addOccupiedCell(grid[i][j]);
             }
